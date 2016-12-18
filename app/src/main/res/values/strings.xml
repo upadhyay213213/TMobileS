@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TMobileS</string>
+    <string name="mixElementUpdateWaitText">Please Wait While Updating Mix Elements..</string>
+</resources>

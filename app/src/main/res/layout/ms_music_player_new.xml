@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_black">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/coustom_action_bar_sdk19" />
+
+    <ImageView
+        android:id="@+id/playBackroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/songDetails"
+        android:layout_below="@+id/title_bar"
+        android:scaleType="fitXY"
+        android:src="@drawable/ms_play_default" />
+
+    <ImageView
+        android:id="@+id/defaultBackroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/songDetails"
+        android:layout_margin="3dp"
+        android:layout_below="@+id/title_bar"
+        android:scaleType="fitXY"
+        android:src="@drawable/ms_play_default" />
+
+    <RelativeLayout
+        android:id="@+id/songDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomBarLayout"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/progressBarContainer"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/loadingProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:indeterminate="true"
+                android:visibility="gone" />
+
+            <SeekBar
+                android:id="@+id/songProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:max="100"
+                android:progressDrawable="@drawable/progress_red_drawable"
+                android:secondaryProgress="0"
+                android:visibility="visible"
+                android:indeterminate="false" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/currentTimeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progressBarContainer"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:singleLine="true"
+            android:text="00:00"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/totalTimeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/currentTimeStatus"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="00:00"
+            android:textColor="@android:color/white"/>
+
+        <EditText
+            android:id="@+id/songTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/currentTimeStatus"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:editable="false"
+            android:maxEms="7"
+            android:singleLine="true"
+            android:text="SongTitle"
+            android:textColor="@android:color/white"
+          />
+
+        <EditText
+            android:id="@+id/mixName"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/songTitle"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="10dp"
+            android:alpha="0.9"
+            android:background="@null"
+            android:editable="false"
+            android:maxEms="7"
+            android:singleLine="true"
+            android:text="Mixname"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TextView.SpinnerItem"
+            android:textColor="#F0F8FF"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/artistTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/songTitle"
+            android:layout_marginLeft="10dp"
+            android:alpha="0.62"
+            android:background="@null"
+            android:editable="false"
+            android:maxEms="9"
+            android:singleLine="true"
+            android:text="Artist"
+            android:textColor="#F0F8FF"
+          />
+
+        <EditText
+            android:id="@+id/unknownName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/artistTitle"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:editable="false"
+            android:maxEms="9"
+            android:paddingBottom="5dp"
+            android:singleLine="true"
+            android:text="knownNme"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/programName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/artistTitle"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:editable="false"
+            android:maxEms="9"
+            android:singleLine="true"
+            android:text="programName"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/albumTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/artistTitle"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:alpha="0.66"
+            android:background="@null"
+            android:editable="false"
+            android:maxEms="9"
+            android:singleLine="true"
+            android:text="AlbumTitle"
+            android:textColor="#F0F8FF"
+            android:textSize="16dip"
+            android:textStyle="normal"
+            />
+
+        <LinearLayout
+            android:id="@+id/adjustMixLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/artistTitle"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/adjustMixTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxEms="9"
+                android:singleLine="true"
+                android:text="Adjust My Mix"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/adjustMixImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:src="@drawable/adjust_mix_icon"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/elementName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/artistTitle"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/mixName"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="5dp"
+            android:background="@null"
+            android:editable="false"
+            android:gravity="right"
+            android:maxEms="7"
+            android:maxLines="2"
+            android:text=""
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignBottom="@+id/songDetails"
+        android:background="@color/gray_dark" />
+
+    <LinearLayout
+        android:id="@+id/bottomBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivPlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/common_red_effect_selector"
+                    android:src="@drawable/ms_play_icon" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp">
+
+            <ImageView
+                android:id="@+id/ivNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_red_effect_selector"
+                android:src="@drawable/ms_next_song" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/roundProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <!-- shadow view -->
+
+    <View
+        android:id="@+id/shadowHiddenView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:background="@color/black"
+        android:visibility="gone" />
+
+    <!-- drawer layout -->
+
+    <RelativeLayout
+        android:id="@+id/drawerAdjustMixesRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_black"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@color/gray_dark" />
+
+            <RelativeLayout
+                android:id="@+id/myMixesButtonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/adjust_mix_strip"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/myMixesIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ms_mixes_icon" />
+
+                <TextView
+                    android:id="@+id/adjustMixesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/myMixesIcon"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="Adjust My Mix"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:id="@+id/downArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/common_red_effect_selector"
+                    android:src="@drawable/ms_down_icon" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/showMixUpdatingLayout"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/showMixUpdatingProgressBar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:id="@+id/mixUpdatingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/mixElementUpdateWaitText" />
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/drawerContainerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingTop="3dp">
+
+                        <TextView
+                            android:id="@+id/mixTypeTextView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="5dp"
+                            android:gravity="right"
+                            android:singleLine="true"
+                            android:text="Lorem lpsum"
+                            android:textSize="12dip"></TextView>
+
+                        <RelativeLayout
+                            android:id="@+id/seekBarAndPerLayout1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/mixTypeTextView1"
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginTop="1dp">
+
+                            <SeekBar
+                                android:id="@+id/mixSeekBar1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="35dp"
+                                android:max="100"
+                                android:paddingBottom="3dp"
+                                android:paddingTop="3dp"
+                                android:progress="0"
+                                android:thumb="@drawable/thumb_adjust_mix"
+                                android:thumbOffset="0dp" />
+
+                            <TextView
+                                android:id="@+id/perTextView1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:ems="3"
+                                android:gravity="right"
+                                android:text="100 %"
+                                android:textSize="12dip"></TextView>
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:background="@color/gray_dark"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingTop="3dp">
+
+                        <TextView
+                            android:id="@+id/mixTypeTextView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="5dp"
+                            android:gravity="right"
+                            android:singleLine="true"
+                            android:text="Lorem lpsum"
+                            android:textSize="12dip"></TextView>
+
+                        <RelativeLayout
+                            android:id="@+id/seekBarAndPerLayout2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/mixTypeTextView2"
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginTop="1dp">
+
+                            <SeekBar
+                                android:id="@+id/mixSeekBar2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="35dp"
+                                android:max="100"
+                                android:paddingBottom="3dp"
+                                android:paddingTop="3dp"
+                                android:progress="0"
+                                android:thumb="@drawable/thumb_adjust_mix"
+                                android:thumbOffset="0dp" />
+
+                            <TextView
+                                android:id="@+id/perTextView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:ems="3"
+                                android:gravity="right"
+                                android:text="100 %"
+                                android:textSize="12dip"></TextView>
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:background="@color/gray_dark"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="9dp"
+                        android:paddingLeft="3dp"
+                        android:paddingTop="3dp">
+
+                        <TextView
+                            android:id="@+id/mixTypeTextView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="5dp"
+                            android:gravity="right"
+                            android:singleLine="true"
+                            android:text="Lorem lpsum"
+                            android:textSize="12dip"></TextView>
+
+                        <RelativeLayout
+                            android:id="@+id/seekBarAndPerLayout3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/mixTypeTextView3"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="2dp">
+
+                            <SeekBar
+                                android:id="@+id/mixSeekBar3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="35dp"
+                                android:max="100"
+                                android:paddingBottom="3dp"
+                                android:paddingTop="3dp"
+                                android:progress="0"
+                                android:thumb="@drawable/thumb_adjust_mix"
+                                android:thumbOffset="0dp" />
+
+                            <TextView
+                                android:id="@+id/perTextView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:ems="3"
+                                android:gravity="right"
+                                android:text="100 %"
+                                android:textSize="12dip"></TextView>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
