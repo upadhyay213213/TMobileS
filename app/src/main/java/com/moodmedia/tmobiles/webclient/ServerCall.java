@@ -1,6 +1,8 @@
 package com.moodmedia.tmobiles.webclient;
 
 import com.moodmedia.tmobiles.common.Constant;
+import com.moodmedia.tmobiles.model.SongDetails;
+import com.moodmedia.tmobiles.model.SongsListResponse;
 
 import java.util.List;
 

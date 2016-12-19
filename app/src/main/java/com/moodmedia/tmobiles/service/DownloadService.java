@@ -12,8 +12,8 @@ import com.moodmedia.tmobiles.common.Constant;
 import com.moodmedia.tmobiles.database.SongsUtil;
 import com.moodmedia.tmobiles.webclient.ServerCall;
 import com.moodmedia.tmobiles.webclient.ServiceGenerator;
-import com.moodmedia.tmobiles.webclient.SongDetails;
-import com.moodmedia.tmobiles.webclient.SongsListResponse;
+import com.moodmedia.tmobiles.model.SongDetails;
+import com.moodmedia.tmobiles.model.SongsListResponse;
 
 import java.io.BufferedInputStream;
 import java.io.File;

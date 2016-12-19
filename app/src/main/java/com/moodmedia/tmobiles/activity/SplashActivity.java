@@ -18,14 +18,14 @@ import android.widget.ImageView;
 import com.moodmedia.tmobiles.R;
 import com.moodmedia.tmobiles.database.SongsUtil;
 import com.moodmedia.tmobiles.database.SqliteHelper;
-import com.moodmedia.tmobiles.webclient.SongsListResponse;
+import com.moodmedia.tmobiles.model.SongsListResponse;
 
 import java.util.ArrayList;
 
 public class SplashActivity extends Activity {
     private static final String SHARED_PREFS_FILE = "pref";
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT = 3000;
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {

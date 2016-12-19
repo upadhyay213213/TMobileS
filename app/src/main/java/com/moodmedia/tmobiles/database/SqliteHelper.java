@@ -13,9 +13,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by pkatya on 11/6/16.
- */
 public class SqliteHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME ="tmobile_songs.sqlite";

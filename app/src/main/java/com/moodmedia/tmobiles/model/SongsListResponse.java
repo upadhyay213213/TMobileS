@@ -1,8 +1,10 @@
-package com.moodmedia.tmobiles.webclient;
+package com.moodmedia.tmobiles.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SongsListResponse implements Model {
+import java.io.Serializable;
+
+public class SongsListResponse implements Serializable {
     @SerializedName("id")
     String id;
     @SerializedName("mood_id")

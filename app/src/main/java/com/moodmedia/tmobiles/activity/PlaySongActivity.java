@@ -17,12 +17,11 @@ import com.moodmedia.tmobiles.R;
 import com.moodmedia.tmobiles.common.Constant;
 import com.moodmedia.tmobiles.database.SongsUtil;
 import com.moodmedia.tmobiles.database.SqliteHelper;
-import com.moodmedia.tmobiles.mediaplayer.SongsManager;
 import com.moodmedia.tmobiles.mediaplayer.Utilities;
 import com.moodmedia.tmobiles.service.DownloadService;
 import com.moodmedia.tmobiles.webclient.ServerCall;
 import com.moodmedia.tmobiles.webclient.ServiceGenerator;
-import com.moodmedia.tmobiles.webclient.SongsListResponse;
+import com.moodmedia.tmobiles.model.SongsListResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,11 +33,9 @@ import retrofit2.Response;
 
 public class PlaySongActivity extends Activity implements View.OnClickListener, MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener {
 
-    private ArrayList<String> songUrlList = new ArrayList<>();
     private ImageView btnPlay;
     private ImageView btnNext;
     private MediaPlayer mp;
-    private SongsManager songManager;
     private Utilities utils;
     private SeekBar songProgressBar;
     private Handler mHandler = new Handler();
@@ -49,6 +46,7 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
     private ArrayList<SongsListResponse> songsListForDb;
     private EditText songAlbumName;
     private EditText songSinger;
+    private boolean firstClick=true;
 
 
     @Override
@@ -87,15 +85,12 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
         btnPlay.setOnClickListener(this);
         btnNext.setOnClickListener(this);
         mp = new MediaPlayer();
-        songManager = new SongsManager();
         utils = new Utilities();
         songProgressBar.setOnSeekBarChangeListener(this); // Important
         mp.setOnCompletionListener(this); // Important
         // Getting all songs list
         SqliteHelper.init(PlaySongActivity.this);
         songsListForDb = SongsUtil.getrawSongsListFromDb();
-        // By default play first song
-        playSong(0);
     }
 
 
@@ -103,40 +98,30 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ivPlay:
-                // check for already playing
-                if (mp.isPlaying()) {
-                    if (mp != null) {
-                        mp.pause();
-                        // Changing button image to play button
-                        btnPlay.setImageResource(R.drawable.ms_play_icon);
-                    }
-                } else {
-                    // Resume song
-                    if (mp != null) {
-                        mp.start();
-                        // Changing button image to pause button
-                        btnPlay.setImageResource(R.drawable.ms_pause_icon);
+                if(firstClick) {
+                    // By default play first song
+                    playSong(0);
+                    firstClick=false;
+                }else {
+                    // check for already playing
+                    if (mp.isPlaying()) {
+                        if (mp != null) {
+                            mp.pause();
+                            // Changing button image to play button
+                            btnPlay.setImageResource(R.drawable.ms_play_icon);
+                        }
+                    } else {
+                        // Resume song
+                        if (mp != null) {
+                            mp.start();
+                            // Changing button image to pause button
+                            btnPlay.setImageResource(R.drawable.ms_pause_icon);
+                        }
                     }
                 }
                 break;
             case R.id.ivNext:
-                if (currentSongIndex < (songsListForDb.size() - 1)) {
-                    playSong(currentSongIndex + 1);
-                    currentSongIndex = currentSongIndex + 1;
-                } else {
-                    // play first song
-                    if (currentSongIndex > 4) {
-                        playSong(0);
-                        currentSongIndex = 0;
-                    } else {
-                        if (currentSongIndex == 4) {
-                            songsListForDb.addAll(SongsUtil.getSongsListFromDb());
-                        }
-                        playSong(currentSongIndex + 1);
-                        currentSongIndex = currentSongIndex + 1;
-
-                    }
-                }
+                playNextSong();
 
                 break;
         }
@@ -149,7 +134,6 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
      */
     public void playSong(int songIndex) {
         // Play song
-
         SongsListResponse currentSongs;
         if (songsListForDb.size() > 0) {
             Log.v("songIndex:", String.valueOf(songIndex));
@@ -252,13 +236,25 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
 
         // shuffle is on - play a random song
         // no repeat or shuffle ON - play next song
+        playNextSong();
+    }
+
+    private void playNextSong(){
         if (currentSongIndex < (songsListForDb.size() - 1)) {
             playSong(currentSongIndex + 1);
             currentSongIndex = currentSongIndex + 1;
         } else {
             // play first song
-            playSong(0);
-            currentSongIndex = 0;
+            if (currentSongIndex > 4) {
+                playSong(0);
+                currentSongIndex = 0;
+            } else {
+                if (currentSongIndex == 4) {
+                    songsListForDb.addAll(SongsUtil.getSongsListFromDb());
+                }
+                playSong(currentSongIndex + 1);
+                currentSongIndex = currentSongIndex + 1;
+            }
         }
     }
 }

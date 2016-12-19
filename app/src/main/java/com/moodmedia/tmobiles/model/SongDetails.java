@@ -1,4 +1,4 @@
-package com.moodmedia.tmobiles.webclient;
+package com.moodmedia.tmobiles.model;
 
 import com.google.gson.annotations.SerializedName;
 
