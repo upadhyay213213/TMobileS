@@ -51,6 +51,7 @@ public class DownloadService extends Service {
             ArrayList<SongsListResponse> trackIds = SongsUtil.getUnDownloadedSongsToDownLoad();
             if(trackIds==null){
                 Toast.makeText(this,"All songs are downloaded",Toast.LENGTH_SHORT).show();
+                stopSelf();
             }else {
                 for (int i = 0; i < trackIds.size(); i++) {
                     Log.v("Ids to downloadsongs",trackIds.toString());
@@ -58,7 +59,7 @@ public class DownloadService extends Service {
                 }
             }
         }
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     /**

@@ -11,6 +11,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.moodmedia.tmobiles.R;
 import com.moodmedia.tmobiles.database.SongsUtil;
@@ -22,18 +25,21 @@ import java.util.ArrayList;
 public class SplashActivity extends Activity {
     private static final String SHARED_PREFS_FILE = "pref";
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 5000;
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+    private ImageView newHearLogo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ms_splash);
-        verifyStoragePermissions(SplashActivity.this);
+        newHearLogo = (ImageView) findViewById(R.id.newHearLogo);
+       // verifyStoragePermissions(SplashActivity.this);
         if(!getRawStorageStatus()) {
             saveDataToDb();
         }
@@ -122,4 +128,18 @@ public class SplashActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fadeInFadeOutLogo();
+    }
+
+    public void fadeInFadeOutLogo() {
+        Animation myFadeInAnimation = AnimationUtils.loadAnimation(this,
+                R.anim.twin);
+        newHearLogo.startAnimation(myFadeInAnimation);
+        // ****
+
+        // **//
+    }
 }

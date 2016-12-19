@@ -37,14 +37,11 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
     private ArrayList<String> songUrlList = new ArrayList<>();
     private ImageView btnPlay;
     private ImageView btnNext;
-    // Media Player
     private MediaPlayer mp;
     private SongsManager songManager;
     private Utilities utils;
     private SeekBar songProgressBar;
-    // Handler to update UI timer, progress bar etc,.
     private Handler mHandler = new Handler();
-    ;
     private TextView songTotalDurationLabel;
     private TextView songCurrentDurationLabel;
     private EditText songTitleLabel;
@@ -58,10 +55,7 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ms_music_player_new);
-
         initViews();
-
-
         final ServerCall mServerCall = ServiceGenerator.getRestService(Constant.ApiForConfigurations.BASE_URL);
         final Call<List<SongsListResponse>> songs = mServerCall.getSongsList();
         songs.enqueue(new Callback<List<SongsListResponse>>() {
@@ -71,11 +65,6 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
                 List<SongsListResponse> songsList = response.body();
                 SqliteHelper.init(PlaySongActivity.this);
                 SongsUtil.addSongsToDb((ArrayList<SongsListResponse>) songsList);
-            /*    Log.v("TAG", songsList.toString());
-                ArrayList<SongsListResponse>temp=new ArrayList<SongsListResponse>();
-                temp.add(songsList.get(1));
-                temp.add(songsList.get(2));
-                temp.add(songsList.get(3));*/
                 DownloadService.startDownloadingSongs(PlaySongActivity.this);
             }
 
@@ -97,20 +86,14 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
         songSinger = (EditText) findViewById(R.id.artistTitle);
         btnPlay.setOnClickListener(this);
         btnNext.setOnClickListener(this);
-
         mp = new MediaPlayer();
         songManager = new SongsManager();
         utils = new Utilities();
-
-        // Listeners
         songProgressBar.setOnSeekBarChangeListener(this); // Important
         mp.setOnCompletionListener(this); // Important
-
         // Getting all songs list
-        //  songsMap = songManager.getPlayList();
         SqliteHelper.init(PlaySongActivity.this);
         songsListForDb = SongsUtil.getrawSongsListFromDb();
-
         // By default play first song
         playSong(0);
     }
@@ -140,14 +123,11 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
                 if (currentSongIndex < (songsListForDb.size() - 1)) {
                     playSong(currentSongIndex + 1);
                     currentSongIndex = currentSongIndex + 1;
-
-
                 } else {
                     // play first song
                     if (currentSongIndex > 4) {
                         playSong(0);
                         currentSongIndex = 0;
-
                     } else {
                         if (currentSongIndex == 4) {
                             songsListForDb.addAll(SongsUtil.getSongsListFromDb());
@@ -177,7 +157,6 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
 
             try {
                 mp.reset();
-                // mp.setDataSource(currentSongs.getSdCardPath());
                 if (songIndex < 5) {
                     mp.setDataSource(getApplicationContext(), Uri.parse(currentSongs.getSdCardPath()));
 
@@ -185,7 +164,7 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
                     if (currentSongs.getSdCardPath() != null) {
                         mp.setDataSource(currentSongs.getSdCardPath());
                     } else {
-                        Toast.makeText(PlaySongActivity.this, "Please wait to download the song", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PlaySongActivity.this, "Please wait song download in progress", Toast.LENGTH_LONG).show();
                     }
                 }
                 mp.prepare();
