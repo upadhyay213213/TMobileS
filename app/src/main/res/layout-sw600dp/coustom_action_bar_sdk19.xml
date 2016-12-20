@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="#222222"
+    android:splitMotionEvents="false" >
+
+    <RelativeLayout
+        android:id="@+id/llBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" >
+
+        <ImageView
+            android:id="@+id/ivback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:visibility="gone"
+            android:layout_marginRight="2dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/common_red_effect_selector"
+            android:src="@drawable/ms_back_icon" />
+
+        <ImageView
+            android:id="@+id/nowPlayingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="0dp"
+            android:layout_toRightOf="@+id/ivback"
+            android:adjustViewBounds="true"
+            android:background="@drawable/common_red_effect_selector"
+            android:src="@drawable/action_bar_now_playing_icon"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/topMoodHearLogoImageView"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/logo_white_t_mobile" />
+
+    <RelativeLayout
+        android:id="@+id/meterScreenButtonLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:visibility="gone" >
+
+        <SeekBar
+            android:id="@+id/meterScreenButImageView"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:clickable="false"
+            android:max="30"
+            android:progressDrawable="@drawable/meter_scale_seekbar_yellow_progress_icon_drawable"
+            android:thumb="@drawable/meter_scale_yellow_thumb"
+            android:thumbOffset="5dp" />
+
+        <View
+            android:id="@+id/tempMusicMeterIconBlankView"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/sonarLocImageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+
+        android:layout_marginRight="10dp"
+        android:background="@drawable/common_red_effect_selector"
+        android:src="@drawable/settingicon"
+         />
+
+</RelativeLayout>

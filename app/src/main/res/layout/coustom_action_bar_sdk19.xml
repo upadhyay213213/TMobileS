@@ -77,14 +77,17 @@
 
     <ImageView
         android:id="@+id/sonarLocImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
         android:layout_marginRight="5dp"
         android:background="@drawable/common_red_effect_selector"
-        android:padding="2dp"
-        android:src="@drawable/ms_signal_icon"
-        android:visibility="gone" />
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:visibility="gone"
+        android:src="@drawable/settingicon"
+         />
 
 </RelativeLayout>

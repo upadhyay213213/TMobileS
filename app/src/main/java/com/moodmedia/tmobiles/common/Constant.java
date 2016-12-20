@@ -1,8 +1,6 @@
 package com.moodmedia.tmobiles.common;
 
-/**
- * Created by pkatya on 12/18/16.
- */
+
 public class Constant {
 
     public static class ApiHeader {

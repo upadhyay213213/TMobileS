@@ -1,9 +1,11 @@
 package com.moodmedia.tmobiles.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +25,11 @@ import com.moodmedia.tmobiles.webclient.ServerCall;
 import com.moodmedia.tmobiles.webclient.ServiceGenerator;
 import com.moodmedia.tmobiles.model.SongsListResponse;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +53,7 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
     private EditText songAlbumName;
     private EditText songSinger;
     private boolean firstClick=true;
+    private ImageView sonarLocImageView;
 
 
     @Override
@@ -84,6 +91,8 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
         songSinger = (EditText) findViewById(R.id.artistTitle);
         btnPlay.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+        sonarLocImageView = (ImageView) findViewById(R.id.sonarLocImageView);
+        sonarLocImageView.setVisibility(View.VISIBLE);
         mp = new MediaPlayer();
         utils = new Utilities();
         songProgressBar.setOnSeekBarChangeListener(this); // Important
@@ -91,6 +100,14 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
         // Getting all songs list
         SqliteHelper.init(PlaySongActivity.this);
         songsListForDb = SongsUtil.getrawSongsListFromDb();
+        Log.d("songsListForDb", songsListForDb.toString());
+        sonarLocImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlaySongActivity.this,AppSetting.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -134,11 +151,12 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
      */
     public void playSong(int songIndex) {
         // Play song
+
         SongsListResponse currentSongs;
         if (songsListForDb.size() > 0) {
             Log.v("songIndex:", String.valueOf(songIndex));
             currentSongs = songsListForDb.get(songIndex);
-
+            Log.d("PlayFunction", songsListForDb.toString());
             try {
                 mp.reset();
                 if (songIndex < 5) {
@@ -171,10 +189,13 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
 
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
+                Log.e("PlayFunction",e.getLocalizedMessage());
             } catch (IllegalStateException e) {
                 e.printStackTrace();
+                Log.e("PlayFunction", e.getLocalizedMessage());
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.e("PlayFunction", e.getLocalizedMessage());
             }
         }
     }
@@ -256,5 +277,55 @@ public class PlaySongActivity extends Activity implements View.OnClickListener, 
                 currentSongIndex = currentSongIndex + 1;
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        saveLog();
+    }
+
+    public void saveLog(){
+        try {
+            Process process = Runtime.getRuntime().exec("logcat -d");
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
+
+            StringBuilder log=new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                log.append(line);
+            }
+            writeToFile(log.toString());
+        } catch (IOException e) {
+        }
+    }
+    private void writeToFile(String data) {
+        String root = Environment.getExternalStorageDirectory().toString();
+
+        File oldFile = new File(root + "/TMOBILE_SIGNATUTE_LOGS/TmobileS.txt");
+        long fileBytes = oldFile.length();
+        if(fileBytes > 14000000){
+            oldFile.delete();
+        }
+
+        File myDir = new File(root + "/TMOBILE_SIGNATUTE_LOGS");
+        myDir.mkdirs();
+        String fname = "TmobileS.txt";
+        File file = new File (myDir, fname);
+
+
+
+        try {
+            FileOutputStream stream = new FileOutputStream(file, true);
+            stream.write(data.getBytes());
+            //OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("config.txt", Context.MODE_PRIVATE));
+            //outputStreamWriter.write(data);
+            //outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+
     }
 }

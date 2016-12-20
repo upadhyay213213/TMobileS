@@ -52,9 +52,10 @@ public class DownloadService extends Service {
             if(trackIds==null){
                 Toast.makeText(this,"All songs are downloaded",Toast.LENGTH_SHORT).show();
                 stopSelf();
+                Log.d("All Songs", "All Songs downlaoded to SD card");
             }else {
                 for (int i = 0; i < trackIds.size(); i++) {
-                    Log.v("Ids to downloadsongs",trackIds.toString());
+                    Log.d("Ids to downloadsongs",trackIds.toString());
                     new GetSongDetails().execute(trackIds.get(i).getId());
                 }
             }
@@ -121,10 +122,12 @@ public class DownloadService extends Service {
             Call<ResponseBody> request = retrofitInterface.downloadFile(url[0]);
             try {
                 downloadFile(request.execute().body(),songId);
+                Log.d("songId", songId);
 
             } catch (IOException e) {
 
                 e.printStackTrace();
+                Log.e("Download Error", e.getMessage());
                 //Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }

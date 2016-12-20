@@ -8,9 +8,7 @@ import com.moodmedia.tmobiles.model.SongsListResponse;
 
 import java.util.ArrayList;
 
-/**
- * Created by pkatya on 11/6/16.
- */
+
 public class SongsUtil {
 
     public static void addSongsToDb(ArrayList<SongsListResponse> songsList) {

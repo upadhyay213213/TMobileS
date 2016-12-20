@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/coustom_action_bar_sdk19" />
+
+    <RelativeLayout
+        android:layout_below="@+id/title_bar"
+        android:layout_width="wrap_content"
+        android:id="@+id/supportRelID"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/sendreportBtn"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:background="@android:color/black"
+            android:text="Support"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_tablet"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:id="@+id/sendreportText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mix@moodmedia.com"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_tablet"
+            android:textColor="@color/gray_dark"
+            android:layout_marginRight="@dimen/margin_large"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/supportRelID"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/sendLogBtN"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:textColor="@android:color/white"
+            android:background="@android:color/black"
+            android:text="SEND"
+            android:textSize="@dimen/text_tablet"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:id="@+id/sendLogText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please send logs "
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_tablet"
+            android:textColor="@color/gray_dark"
+            android:layout_marginRight="85dp"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

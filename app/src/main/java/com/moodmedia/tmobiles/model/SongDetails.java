@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * Created by pkatya on 12/18/16.
- */
+
 public class SongDetails implements Serializable{
     @SerializedName("id")
     String id;
